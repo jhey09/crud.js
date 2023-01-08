@@ -15,6 +15,11 @@ const cedulaInput = document.querySelector('#cedula');
 const AgregarInput = document.querySelector('#Agregar');
 const contenedor = document.querySelector('.contenedor')
 
+const guardarDB = () =>{ 
+    localStorage.setItem('datosp',JSON.stringify(objPersona));
+ }
+
+
 formulario.addEventListener('submit', validarFormulario);
 
 function validarFormulario(e) {
@@ -57,37 +62,35 @@ function mostrarPersona() {
     limpiarHTML();
 
     const divlista = document.querySelector('.lista');
-    
-    
-    
+     
     listaPersonas.forEach(persona => {
         const { id, nombre, cedula} = persona;
-        const divNewpe = document.createElement('div')
-        divNewpe.id = 'persona'
-
+       
         const parrafo = document.createElement('p');
         parrafo.textContent = `${id} - ${nombre} - ${cedula} - `;
         parrafo.dataset.id = id;
 
-        document.getElementById('persona').appendChild(parrafo);
+        divlista.appendChild(parrafo);
 
         const editarBoton = document.createElement('button');
         editarBoton.onclick = () => cargarPersona(persona);
         editarBoton.textContent = 'editar';
         editarBoton.classList.add('submit', 'editar');
-        document.getElementById('persona').append(editarBoton);
+        divlista.append(editarBoton);
 
         const eliminarBoton = document.createElement('button');
         eliminarBoton.onclick = () => eliminarPersona(id);
         eliminarBoton.textContent = 'eliminar';
         eliminarBoton.classList.add('submit', 'eliminar');
-        document.getElementById('persona').append(eliminarBoton);
-
+        divlista.append(eliminarBoton);
 
         const hr = document.createElement('hr');
 
-        contenedor.appendChild(hr);
         
+        contenedor.appendChild(hr);
+
+        guardarDB();
+
     });
 }
 
@@ -102,6 +105,7 @@ function cargarPersona(persona) {
     formulario.querySelector('button[type="submit"]').textContent = 'Actualizar';
     
     editando = true;
+   
 }
 
 function editarPersona() {
@@ -123,6 +127,8 @@ function editarPersona() {
     limpiarHTML();
     mostrarPersona();
     formulario.reset();
+    guardarDB();
+    
 
     formulario.querySelector('button[type="submit"]').textContent = 'Agregar';
     
@@ -142,6 +148,7 @@ function limpiarHTML() {
     while(divPersona.firstChild) {
         divPersona.removeChild(divPersona.firstChild);
     }
-}
+} 
+
 
 
