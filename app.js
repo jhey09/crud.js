@@ -15,8 +15,22 @@ const cedulaInput = document.querySelector('#cedula');
 const AgregarInput = document.querySelector('#Agregar');
 const contenedor = document.querySelector('.contenedor')
 
+
 const guardarDB = () =>{ 
-    localStorage.setItem('datosp',JSON.stringify(objPersona));
+    let pers = JSON.parse(localStorage.getItem('datosp'))
+    pers.push(listaPersonas)
+    localStorage.setItem('datosp',JSON.stringify(pers));
+
+    render() 
+ }
+
+ function render() {
+    let datos = JSON.parse(localStorage.getItem('datosp'))
+    listaPersonas.innerHTML = ''
+    datos.forEach(id, nombre, cedula =>{
+        listaPersonas.innerHTML += `<p> ${id} - ${nombre} - ${cedula} - </p>
+        `
+    })
  }
 
 
@@ -39,6 +53,7 @@ function validarFormulario(e) {
         objPersona.cedula = cedulaInput.value;
 
         aggPersona();
+       
     }
 }
 
@@ -47,9 +62,9 @@ function aggPersona() {
     listaPersonas.push({...objPersona});
 
     mostrarPersona();
-
     formulario.reset();
     limpiarObjeto();
+
 }
 
 function limpiarObjeto() {
@@ -88,8 +103,8 @@ function mostrarPersona() {
 
         
         contenedor.appendChild(hr);
-
         guardarDB();
+        
 
     });
 }
@@ -105,6 +120,7 @@ function cargarPersona(persona) {
     formulario.querySelector('button[type="submit"]').textContent = 'Actualizar';
     
     editando = true;
+    guardarDB();
    
 }
 
@@ -141,6 +157,8 @@ function eliminarPersona(id) {
 
     limpiarHTML();
     mostrarPersona();
+    guardarDB()
+    
 }
 
 function limpiarHTML() {
@@ -149,6 +167,3 @@ function limpiarHTML() {
         divPersona.removeChild(divPersona.firstChild);
     }
 } 
-
-
-
