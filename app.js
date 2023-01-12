@@ -17,9 +17,8 @@ const contenedor = document.querySelector('.contenedor')
 
 
 const guardarDB = () =>{ 
-    let pers = JSON.parse(localStorage.getItem('datosp'))
-    pers.push(listaPersonas)
-    localStorage.setItem('datosp',JSON.stringify(pers));
+    let Datospers = JSON.parse(localStorage.getItem('datosp'))
+    localStorage.setItem('datosp',JSON.stringify(Datospers));
 
     render() 
  }
@@ -27,8 +26,8 @@ const guardarDB = () =>{
  function render() {
     let datos = JSON.parse(localStorage.getItem('datosp'))
     listaPersonas.innerHTML = ''
-    datos.forEach(id, nombre, cedula =>{
-        listaPersonas.innerHTML += `<p> ${id} - ${nombre} - ${cedula} - </p>
+    datos.forEach(persona =>{
+        divlista.innerHTML += `<p> ${persona} - </p>
         `
     })
  }
@@ -103,7 +102,8 @@ function mostrarPersona() {
 
         
         contenedor.appendChild(hr);
-        guardarDB();
+        guardarDB()
+        
         
 
     });
@@ -120,8 +120,8 @@ function cargarPersona(persona) {
     formulario.querySelector('button[type="submit"]').textContent = 'Actualizar';
     
     editando = true;
-    guardarDB();
-   
+    guardarDB()
+    
 }
 
 function editarPersona() {
@@ -157,7 +157,7 @@ function eliminarPersona(id) {
 
     limpiarHTML();
     mostrarPersona();
-    guardarDB()
+    guardarDB();
     
 }
 
@@ -167,3 +167,8 @@ function limpiarHTML() {
         divPersona.removeChild(divPersona.firstChild);
     }
 } 
+
+
+AgregarInput.addEventListener("click", () => {
+    console.log(formulario.value)
+});
