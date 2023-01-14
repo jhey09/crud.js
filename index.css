@@ -13,16 +13,14 @@ title{
 
 body{
     background: radial-gradient(ellipse at center, #8E0000 0%, #2C0707 65%);
-    display: flex;
-    justify-content: space-around;
-   
     
 }
 
 .formulario{
     margin: 2%;
     padding: 2%;
-    width: 20%;
+    width: 70%;
+    height: 30%;
     align-items: center;
     height: 200px;
     text-align: center;

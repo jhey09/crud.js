@@ -17,21 +17,13 @@ const contenedor = document.querySelector('.contenedor')
 
 
 const guardarDB = () =>{ 
-    let Datospers = JSON.parse(localStorage.getItem('datosp'))
-    localStorage.setItem('datosp',JSON.stringify(Datospers));
-
+    localStorage.setItem('datospersona',JSON.stringify(listaPersonas))
     render() 
  }
 
  function render() {
-    let datos = JSON.parse(localStorage.getItem('datosp'))
-    listaPersonas.innerHTML = ''
-    datos.forEach(persona =>{
-        divlista.innerHTML += `<p> ${persona} - </p>
-        `
-    })
+    let datos = JSON.parse(localStorage.getItem('datospersona'))
  }
-
 
 formulario.addEventListener('submit', validarFormulario);
 
@@ -167,8 +159,3 @@ function limpiarHTML() {
         divPersona.removeChild(divPersona.firstChild);
     }
 } 
-
-
-AgregarInput.addEventListener("click", () => {
-    console.log(formulario.value)
-});
